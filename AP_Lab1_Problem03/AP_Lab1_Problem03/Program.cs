@@ -8,60 +8,22 @@ using System.Runtime;
 
 namespace AP_Lab1_Problem03
 {
-    public class BankAccount
-    {
-        private int id;
-        private decimal balance;
-
-        public int Id
-        {
-            get
-            {
-                return this.id;
-            }
-            set
-            {
-                this.id = value;
-            }
-        }
-
-        public decimal Balance
-        {
-            get
-            {
-                return this.balance;
-            }
-
-            set
-            {
-                this.balance = value;
-            }
-        }
-
-        public void Deposit(decimal amount)
-        {
-            this.Balance += amount;
-        }
-
-        public void Withdraw(decimal amount)
-        {
-            this.Balance -= amount;
-        }
-
-        public override string ToString()
-        {
-            return $"Account ID{this.Id}, balance {this.Balance}";
-        }
-    }
+ 
     class Program
     {
         static void Main(string[] args)
         {
             Dictionary<int, BankAccount> accounts = new Dictionary<int, BankAccount>();
 
-            Console.WriteLine("Enter command line:");
+            Console.WriteLine("Welcome to BankAccount Sytem");
+            Console.WriteLine("Menu Option");
+            Console.WriteLine("1. Create");
+            Console.WriteLine("2. Deposit");
+            Console.WriteLine("3. Withdraw");
+            Console.WriteLine("4.Print");
+            Console.WriteLine("To Implement the function of this system. Please input the command-line that show in the MenuOption.");
+            Console.WriteLine("Input the command: ");
             string command;
-
 
             while ((command = Console.ReadLine()) != "End")
             {
@@ -79,8 +41,9 @@ namespace AP_Lab1_Problem03
                         {
                             var account = new BankAccount { Id = accountId };
                             accounts.Add(accountId, account);
+                            Console.WriteLine("An account is successfull created.");
                         }
-                        break;
+                        break; 
                     case "Deposit":
                         if (!accounts.ContainsKey(accountId))
                         {
@@ -89,7 +52,19 @@ namespace AP_Lab1_Problem03
                         else
                         {
                             decimal amount = decimal.Parse(commandArgs[2]);
-                            accounts[accountId].Deposit(amount);
+                            
+                            if (amount > 0)
+                            {
+                                accounts[accountId].Deposit(amount);
+                                Console.WriteLine("Successfull Deposit");
+
+                            }
+                            else
+                            {
+                                Console.WriteLine("Unsuccesfully Deposit");
+                            }
+                            
+                           
                         }
                         break;
                     case "Withdraw":
@@ -107,6 +82,7 @@ namespace AP_Lab1_Problem03
                             else
                             {
                                 accounts[accountId].Withdraw(amount);
+                                Console.WriteLine($"Successfully Withdrawl.");
                             }
                         }
                         break;
